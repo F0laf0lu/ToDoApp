@@ -1,3 +1,12 @@
+<form method ="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Add Task</button>
+</form>
+
+<br><br>
+
+
 {% for item in todo_list  %}
-<ol> {{ item.content }}</li>
+<li> {{ item.content }} <a href="{% url 'delete' item.id %}"<button> Delete </button></a></li><br>
 {% endfor %}
