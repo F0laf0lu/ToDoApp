@@ -17,6 +17,16 @@ def home(request):
     return render(request, 'index.html', {'todo_list':todo_list, 'form':form})
 
 
+def update_todo(request, pk):
+    item = get_object_or_404(Todo, pk=pk)
+    form = TodoForm(instance=item)
+    if request.method == 'POST':
+        form = TodoForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('/todo')
+    return render(request, 'edit.html', {'form': form})
+
 
 def delete_todo(request, pk):
     item = get_object_or_404(Todo, pk=pk)

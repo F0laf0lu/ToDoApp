@@ -4,9 +4,10 @@
     <button type="submit">Add Task</button>
 </form>
 
-<br><br>
-
 
 {% for item in todo_list  %}
-<li> {{ item.content }} <a href="{% url 'delete' item.id %}"<button> Delete </button></a></li><br>
+<li> {{ item.content }}
+    <a href="{% url 'edit' item.id %}"><button> Edit </button></a>
+    <a href="{% url 'delete' item.id %}"><button> Delete </button></a>
+</li><br>
 {% endfor %}
