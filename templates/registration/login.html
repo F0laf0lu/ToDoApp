@@ -1,0 +1,19 @@
+{% if form.errors %}
+    <p>Incorrect login details. Try again</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+        <p>You don't have permission to view this page</p>
+    {% else %}
+        <p>Login Please</p>
+    {% endif %}
+{% endif %}
+
+<form method ="POST">
+    {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Log In</button>
+</form>
+<p>New user ? Create an account Here
+    <a href="{% url 'signup' %}"><button> Signup </button></a> </p>

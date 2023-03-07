@@ -1,3 +1,17 @@
+
+
+
+<div>
+{% if user.is_authenticated %}
+    <h2>Welcome, {{user.username}}</h2><a href="{% url 'logout' %}"><button> Logout </button></a>
+{% else %}
+    <p> Have an account ? Log in here
+    <a href="{% url 'login' %}"><button> Login </button></a></p>
+    <p>New user ? Create an account Here
+    <a href="{% url 'signup' %}"><button> Signup </button></a> </p>
+{% endif %}
+</div>
+<br>
 <form method ="POST">
     {% csrf_token %}
     {{ form }}
