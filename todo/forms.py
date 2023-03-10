@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = "__all__"
+        fields = ['content']
         labels = {
             "content": ""
         }

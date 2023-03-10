@@ -2,10 +2,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from . models import Todo
 from . forms import TodoForm, SignUpForm
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def SignUp(request):
-
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -16,9 +16,9 @@ def SignUp(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
-
+@login_required
 def home(request):
-    todo_list = Todo.objects.all()
+    todo_list = Todo.objects.filter(user = request.user)
     if request.method == 'GET':
         form = TodoForm()
     elif request.method == 'POST':
@@ -29,6 +29,8 @@ def home(request):
     return render(request, 'index.html', {'todo_list':todo_list, 'form':form})
 ## Issue: Getting todo list specific to a particular user
 
+
+@login_required
 def update_todo(request, pk):
     item = get_object_or_404(Todo, pk=pk)
     form = TodoForm(instance=item)
@@ -40,6 +42,7 @@ def update_todo(request, pk):
     return render(request, 'edit.html', {'form': form})
 
 
+@login_required
 def delete_todo(request, pk):
     item = get_object_or_404(Todo, pk=pk)
     item.delete()
